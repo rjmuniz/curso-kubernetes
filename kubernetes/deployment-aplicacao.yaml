@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aplicacao-noticia-deployment
+spec:
+  selector:
+    matchLabels: 
+      name: aplicacao-noticia-pod
+  template:
+    metadata:
+      labels:
+        name: aplicacao-noticia-pod
+    spec:
+      containers:
+        - name: container-aplicacao
+          image: rjmuniz/noticia-alura:v2
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: 200m
+          ports:
+            - containerPort: 80
+# kubectl autoscale deployment aplicacao-noticia-deployment --cpu-percent=20 --min=1 --max=10
